@@ -32,7 +32,7 @@ Third:
 
 Import the Python script and edit the crontab:
 
-    $ wget https://github.com/KeikoWare/RaspberryPi_TempeartureDS18B20/KeikoTemp.py
+    $ wget https://raw.githubusercontent.com/KeikoWare/RaspberryPi_TempeartureDS18B20/master/KeikoTemp.py
     $ sudo crontab -e
 
 Add the following line at the bottom
