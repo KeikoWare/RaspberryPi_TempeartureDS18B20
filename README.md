@@ -37,6 +37,6 @@ Import the Python script and edit the crontab:
 
 Add the following line at the bottom
 
-    */10 * * * * * python /home/pi/KeikoTemp.py
+    */10 * * * * python /home/pi/KeikoTemp.py
 
     $ sudo reboot
