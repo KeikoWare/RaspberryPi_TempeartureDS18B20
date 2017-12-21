@@ -16,7 +16,7 @@ def read_temp_raw():
   f = open(device_folder + device_file, 'r')
   lines = f.readlines()
   f.close
-  return lines 
+  return lines
 
 def read_temp():
   lines = read_temp_raw()
@@ -32,9 +32,22 @@ def read_temp():
 for device_folder in device_folder_arr:
   temp_in = read_temp()
   sensor = os.path.basename(os.path.normpath(device_folder))
+  uid = getserial()
   print("Sensor={0} Temp={1:0.1f}*".format(sensor, temp_in))
-  payload = {'sensor':sensor,'temperature':temp_in,'humidity':'0'}
+  payload = {'sensor':sensor,'temperature':temp_in,'humidity':'0':'uid',uid}
   request = urllib2.Request(url,data=urllib.urlencode(payload))
   request.add_header('Content-Type','application/x-www-form-urlencoded')
   response = urllib2.urlopen(request)
 
+def getserial():
+  # Extract serial from cpuinfo file
+  cpuserial = "0000000000000000"
+  try:
+    f = open('/proc/cpuinfo','r')
+    for line in f:
+      if line[0:6]=='Serial':
+        cpuserial = line[10:26]
+    f.close()
+  except:
+    cpuserial = "test323456789"
+  return cpuserial
