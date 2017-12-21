@@ -29,16 +29,6 @@ def read_temp():
     temp_c = float(temp_string)/1000.0
     return temp_c
 
-for device_folder in device_folder_arr:
-  temp_in = read_temp()
-  sensor = os.path.basename(os.path.normpath(device_folder))
-  uid = getserial()
-  print("Sensor={0} Temp={1:0.1f}*".format(sensor, temp_in))
-  payload = {'sensor':sensor,'temperature':temp_in,'humidity':'0':'uid',uid}
-  request = urllib2.Request(url,data=urllib.urlencode(payload))
-  request.add_header('Content-Type','application/x-www-form-urlencoded')
-  response = urllib2.urlopen(request)
-
 def getserial():
   # Extract serial from cpuinfo file
   cpuserial = "0000000000000000"
@@ -51,3 +41,13 @@ def getserial():
   except:
     cpuserial = "test323456789"
   return cpuserial
+
+for device_folder in device_folder_arr:
+  temp_in = read_temp()
+  sensor = os.path.basename(os.path.normpath(device_folder))
+  uid = getserial()
+  print("Sensor={0} Temp={1:0.1f}*".format(sensor, temp_in))
+  payload = {'sensor':sensor,'temperature':temp_in,'humidity':'0','uid':uid}
+  request = urllib2.Request(url,data=urllib.urlencode(payload))
+  request.add_header('Content-Type','application/x-www-form-urlencoded')
+  response = urllib2.urlopen(request)
